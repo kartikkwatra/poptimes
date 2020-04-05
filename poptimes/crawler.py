@@ -427,10 +427,14 @@ def get_populartimes(api_key, place_id):
     # places api - detail search
     # https://developers.google.com/places/web-service/details?hl=de
     detail_str = DETAIL_URL.format(place_id, api_key)
+    
+    print(" about to send places request")
+
     resp = json.loads(requests.get(detail_str, auth=('user', 'pass')).text)
     check_response_code(resp)
     detail = resp["result"]
 
+    #TODO   Change arguments of the below FN
     return get_populartimes_by_detail(api_key, detail)
 
 
