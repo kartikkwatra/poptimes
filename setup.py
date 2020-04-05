@@ -15,12 +15,12 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-    name='populartimes',
-    version='2.0',
-    description='Populartimes Google Maps',
+    name='poptimes',
+    version='3.0',
+    description='Poptimes Google Maps',
     long_description=long_description,
-    url='https://github.com/m-wrzr/populartimes',
-    author='riedmaph;m-wrzr;SweetyGott',
+    url='https://github.com/kartikkwatra/poptimes',
+    author='riedmaph;m-wrzr;SweetyGott;kartikkwatra',
     license='MIT',
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -33,7 +33,7 @@ setup(
         # that you indicate whether you support Python 2, Python 3 or both.
         'Programming Language :: Python :: 3.6.1',
     ],
-    keywords='populartimes googlemaps',
+    keywords='poptimes gmaps',
 
     # TODO
     # You can just specify the packages manually here if your project is
@@ -53,9 +53,5 @@ setup(
     # To provide executable scripts, use entry points in preference to the
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
-    entry_points={
-        'console_scripts': [
-            'populartimes=populartimes:execute',
-        ],
-    },
+    
 )
