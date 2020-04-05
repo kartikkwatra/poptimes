@@ -1,4 +1,4 @@
-from populartimes.crawler import cover_rect_with_cicles, rect_circle_collision
+from poptimes.crawler import cover_rect_with_cicles, rect_circle_collision
 import random
 from math import pi
 

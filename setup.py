@@ -1,5 +1,5 @@
 """
-https://github.com/m-wrzr/populartimes
+https://github.com/kartikkwatra/poptimes
 """
 
 # Always prefer setuptools over distutils
