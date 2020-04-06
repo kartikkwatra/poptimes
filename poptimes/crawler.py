@@ -14,6 +14,8 @@ import urllib.parse
 from time import sleep, time
 from queue import Queue
 
+import pandas as pd
+
 import requests
 from geopy import Point
 from geopy.distance import vincenty, VincentyDistance
@@ -372,6 +374,8 @@ def get_populartimes_from_search(place_identifier):
     # get info from result array, has to be adapted if backend api changes
     info = index_get(jdata, 0, 1, 0, 14)
 
+    # print(info)
+
     rating = index_get(info, 4, 7)
     rating_n = index_get(info, 4, 8)
 
@@ -399,7 +403,9 @@ def get_populartimes_from_search(place_identifier):
 
         time_spent = [int(t) for t in time_spent]
 
-    return rating, rating_n, popular_times, current_popularity, time_spent
+    #TODO restore
+    # return rating, rating_n, popular_times, current_popularity, time_spent
+    return current_popularity
 
 
 def get_detail(place_id):
@@ -428,19 +434,27 @@ def get_populartimes(api_key, place_id):
     # https://developers.google.com/places/web-service/details?hl=de
     detail_str = DETAIL_URL.format(place_id, api_key)
     
-    print(" about to send places request")
+    print("in get_populartimes")
 
-    resp = json.loads(requests.get(detail_str, auth=('user', 'pass')).text)
-    check_response_code(resp)
-    detail = resp["result"]
+    # resp = json.loads(requests.get(detail_str, auth=('user', 'pass')).text)
+    # check_response_code(resp)
+    # detail = resp["result"]
 
-    #TODO   Change arguments of the below FN
-    return get_populartimes_by_detail(api_key, detail)
+    # return get_populartimes_by_detail(api_key, detail)
+
+    name = "Reliance SMART"
+    address = "Johnson Dye Compound, West, 12, Ramchandra Ln, Malad, opp Paras industry, near IDBI Bank, Malad, Navy Colony, Kanchpada, Malad West, Mumbai, Maharashtra 400064, India"
+    place_identifier = "{} {}".format(name, address)
+
+    return get_populartimes_from_search(place_identifier)
 
 
 def get_populartimes_by_detail(api_key, detail):
     address = detail["formatted_address"] if "formatted_address" in detail else detail.get("vicinity", "")
-
+    
+    print( detail["name"] )
+    print( address )
+    
     place_identifier = "{} {}".format(detail["name"], address)
 
     detail_json = {
