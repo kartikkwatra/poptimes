@@ -359,22 +359,41 @@ def get_populartimes_from_search(place_identifier):
     # noinspection PyUnresolvedReferences
     gcontext = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
 
+
     resp = urllib.request.urlopen(urllib.request.Request(url=search_url, data=None, headers=USER_AGENT),
                                   context=gcontext)
     data = resp.read().decode('utf-8').split('/*""*/')[0]
+
+
+    # with open('f1.txt','w') as f:
+    #     f.write('\n'.join( resp.read()  ))
+
+    # with open('f2.txt','w') as f:
+    #     f.write('\n'.join(  resp.read().decode('utf-8') ))
+    
+    
+    # pd.DataFrame(resp.read()).to_csv("respUndecoded.csv",index=False)
+    # pd.DataFrame(resp.read().decode('utf-8')).to_csv("respDecoded.csv",index=False)
+
 
     # find eof json
     jend = data.rfind("}")
     if jend >= 0:
         data = data[:jend + 1]
 
+
     jdata = json.loads(data)["d"]
+    print( jdata )
+
     jdata = json.loads(jdata[4:])
 
     # get info from result array, has to be adapted if backend api changes
     info = index_get(jdata, 0, 1, 0, 14)
 
-    # print(info)
+    print( type (info) )
+
+    pd.DataFrame(info).to_csv("output.csv",index=False)
+
 
     rating = index_get(info, 4, 7)
     rating_n = index_get(info, 4, 8)
